@@ -15,3 +15,15 @@ class AddData extends AddFinancialEvent {
   const AddData(
       {required this.description, required this.value, required this.category});
 }
+
+class UpdateData extends AddFinancialEvent {
+  final FinancialRecordEntity financialRecordEntity;
+
+  const UpdateData({required this.financialRecordEntity});
+}
+
+class DeleteData extends AddFinancialEvent {
+  final FinancialRecordEntity financialRecordEntity;
+
+  const DeleteData({required this.financialRecordEntity});
+}

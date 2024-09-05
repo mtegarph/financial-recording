@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
               FinancialBloc(sl(), sl(), sl(), sl())..add(GetDataEvent()),
         ),
         BlocProvider(
-          create: (context) => AddFinancialBloc(sl()),
+          create: (context) => AddFinancialBloc(sl(), sl(), sl()),
         ),
       ],
       child: MaterialApp(

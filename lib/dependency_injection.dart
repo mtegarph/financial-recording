@@ -3,10 +3,12 @@ import 'package:financial_recording/features/financial/data/datasources/local/fi
 import 'package:financial_recording/features/financial/data/repositories/financial_repo_impl.dart';
 import 'package:financial_recording/features/financial/domain/repositories/financial_repositories.dart';
 import 'package:financial_recording/features/financial/domain/usecases/add_financial.dart';
+import 'package:financial_recording/features/financial/domain/usecases/delete_financial.dart';
 import 'package:financial_recording/features/financial/domain/usecases/get_balance.dart';
 import 'package:financial_recording/features/financial/domain/usecases/get_expenses.dart';
 import 'package:financial_recording/features/financial/domain/usecases/get_income.dart';
 import 'package:financial_recording/features/financial/domain/usecases/list_financial.dart';
+import 'package:financial_recording/features/financial/domain/usecases/update_financial.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/add_financial_bloc/add_financial_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/get_data_bloc/financial_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -54,7 +56,12 @@ Future<void> init() async {
   sl.registerLazySingleton(
       () => GetExpensesUseCase(financialRepositories: sl()));
   sl.registerLazySingleton(() => GetIncomeUseCase(financialRepositories: sl()));
+  sl.registerLazySingleton(
+      () => DeleteFinancialUsecase(financialRepositories: sl()));
+  sl.registerLazySingleton(
+      () => UpdateFinancialUsecase(financialRepositories: sl()));
+
   // bloc
   sl.registerFactory(() => FinancialBloc(sl(), sl(), sl(), sl()));
-  sl.registerFactory(() => AddFinancialBloc(sl()));
+  sl.registerFactory(() => AddFinancialBloc(sl(), sl(), sl()));
 }

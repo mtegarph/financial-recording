@@ -1,3 +1,4 @@
+import 'package:financial_recording/features/financial/domain/entities/financial_record_entity.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/add_financial_bloc/add_financial_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/get_data_bloc/financial_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/widgets/card_custom.dart';
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _showAddTransactionModal(context);
+          _showAddTransactionModal(context, null);
         },
         child: const Icon(Icons.add),
       ),
@@ -78,11 +79,16 @@ class _HomePageState extends State<HomePage> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             final transaction = filteredTransactions[index];
-                            return Card(
-                              child: ListTile(
-                                title: Text(transaction.description),
-                                subtitle: Text(transaction.value),
-                                trailing: Text(transaction.category),
+                            return GestureDetector(
+                              onTap: () {
+                                _showAddTransactionModal(context, transaction);
+                              },
+                              child: Card(
+                                child: ListTile(
+                                  title: Text(transaction.description),
+                                  subtitle: Text(transaction.value),
+                                  trailing: Text(transaction.category),
+                                ),
                               ),
                             );
                           },
@@ -164,7 +170,8 @@ class _HomePageState extends State<HomePage> {
         date1.day == date2.day;
   }
 
-  void _showAddTransactionModal(BuildContext context) {
+  void _showAddTransactionModal(
+      BuildContext context, FinancialRecordEntity? data) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -180,7 +187,9 @@ class _HomePageState extends State<HomePage> {
               }
             },
             builder: (context, state) {
-              return const AddTransactionSheet();
+              return AddTransactionSheet(
+                financialRecordEntity: data,
+              );
             },
           ),
         );
