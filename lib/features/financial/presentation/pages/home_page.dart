@@ -10,10 +10,10 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   String selectedCategory = 'All';
   DateTime? selectedDate;
 
@@ -80,6 +80,9 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             final transaction = filteredTransactions[index];
                             return GestureDetector(
+                              onLongPress: () {
+                                _showDeleteDialog(transaction);
+                              },
                               onTap: () {
                                 _showAddTransactionModal(context, transaction);
                               },
@@ -109,6 +112,52 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showDeleteDialog(FinancialRecordEntity transaction) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return BlocConsumer<AddFinancialBloc, AddFinancialState>(
+          listener: (context, state) {
+            if (state is AddFinancialSuccess) {
+              context.read<FinancialBloc>().add(GetDataEvent());
+            }
+          },
+          builder: (context, state) {
+            return AlertDialog(
+              title: const Text('Delete Data'),
+              content: const SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text('Apakah Anda Yakin Ingin Menghapus Data ?'),
+                    Text('Data yang sudah di hapus tidak bisa balik lagi'),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('Tidak'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text('Ya'),
+                  onPressed: () {
+                    context
+                        .read<AddFinancialBloc>()
+                        .add(DeleteData(financialRecordEntity: transaction));
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 

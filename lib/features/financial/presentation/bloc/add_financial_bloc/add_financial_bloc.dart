@@ -1,10 +1,10 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:financial_recording/features/financial/domain/entities/financial_record_entity.dart';
 import 'package:financial_recording/features/financial/domain/usecases/add_financial.dart';
 import 'package:financial_recording/features/financial/domain/usecases/delete_financial.dart';
 import 'package:financial_recording/features/financial/domain/usecases/update_financial.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'add_financial_event.dart';
 part 'add_financial_state.dart';

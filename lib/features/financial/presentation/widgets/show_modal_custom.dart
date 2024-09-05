@@ -8,10 +8,10 @@ class AddTransactionSheet extends StatefulWidget {
   const AddTransactionSheet({super.key, this.financialRecordEntity});
 
   @override
-  _AddTransactionSheetState createState() => _AddTransactionSheetState();
+  AddTransactionSheetState createState() => AddTransactionSheetState();
 }
 
-class _AddTransactionSheetState extends State<AddTransactionSheet> {
+class AddTransactionSheetState extends State<AddTransactionSheet> {
   final _formKey = GlobalKey<FormState>();
   String description = '';
   String category = 'Pemasukan';
