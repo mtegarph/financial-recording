@@ -37,12 +37,25 @@ class FinancialRepoImpl implements FinancialRepositories {
       List<FinancialRecordEntity> resultParse = [];
       for (var element in result) {
         resultParse.add(FinancialRecordEntity(
-            date: DateTime.parse(element.date),
-            id: element.id ?? 0,
+            id: element.id,
             description: element.description,
+            value: element.value,
             category: element.category,
-            value: element.value));
+            date: DateTime.now(),
+            amount: element.value,
+            createdAt: DateTime.now().toString(),
+            currency: 'Rp',
+            deletedAt: DateTime.now().toString(),
+            image: DateTime.now().toString(),
+            name: element.description,
+            note: element.description,
+            status: element.description,
+            subCategory: element.description,
+            time: element.description,
+            type: element.description,
+            updatedAt: element.description));
       }
+      resultParse.first.printName();
       return resultParse;
     } catch (e) {
       throw Exception(e);

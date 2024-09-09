@@ -10,6 +10,7 @@ import 'package:financial_recording/features/financial/domain/usecases/get_incom
 import 'package:financial_recording/features/financial/domain/usecases/list_financial.dart';
 import 'package:financial_recording/features/financial/domain/usecases/update_financial.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/add_financial_bloc/add_financial_bloc.dart';
+import 'package:financial_recording/features/financial/presentation/bloc/bloc/financial_count_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/get_data_bloc/financial_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart';
@@ -64,4 +65,5 @@ Future<void> init() async {
   // bloc
   sl.registerFactory(() => FinancialBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => AddFinancialBloc(sl(), sl(), sl()));
+  sl.registerFactory(() => FinancialCountBloc(sl(), sl(), sl()));
 }

@@ -1,5 +1,5 @@
 import 'package:financial_recording/features/financial/domain/entities/financial_record_entity.dart';
-import 'package:financial_recording/features/financial/presentation/bloc/add_financial_bloc/add_financial_bloc.dart';
+import 'package:financial_recording/features/financial/presentation/bloc/bloc/financial_count_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,17 +36,27 @@ class AddTransactionSheetState extends State<AddTransactionSheet> {
       _formKey.currentState!.save();
 
       widget.financialRecordEntity != null
-          ? context.read<AddFinancialBloc>().add(UpdateData(
-              financialRecordEntity: FinancialRecordEntity(
+          ? context.read<FinancialCountBloc>().add(
+              FinancialCountEvent.updateData(FinancialRecordEntity(
                   id: widget.financialRecordEntity?.id,
                   description: description,
                   value: amount.toString(),
                   category: category,
-                  date: DateTime.now())))
-          : context.read<AddFinancialBloc>().add(AddData(
-              description: description,
-              value: amount.toString(),
-              category: category));
+                  createdAt: DateTime.now().toString(),
+                  currency: 'Rp',
+                  deletedAt: DateTime.now().toString(),
+                  image: DateTime.now().toString(),
+                  name: description,
+                  note: description,
+                  status: description,
+                  subCategory: description,
+                  time: description,
+                  type: description,
+                  updatedAt: description,
+                  date: DateTime.now(),
+                  amount: '')))
+          : context.read<FinancialCountBloc>().add(FinancialCountEvent.addData(
+              description, amount.toString(), category));
       Navigator.pop(context); // Close the modal sheet
     }
   }

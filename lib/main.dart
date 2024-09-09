@@ -1,5 +1,6 @@
 import 'package:financial_recording/dependency_injection.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/add_financial_bloc/add_financial_bloc.dart';
+import 'package:financial_recording/features/financial/presentation/bloc/bloc/financial_count_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/get_data_bloc/financial_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AddFinancialBloc(sl(), sl(), sl()),
+        ),
+        BlocProvider(
+          create: (context) => FinancialCountBloc(sl(), sl(), sl()),
         ),
       ],
       child: MaterialApp(

@@ -1,5 +1,5 @@
 import 'package:financial_recording/features/financial/domain/entities/financial_record_entity.dart';
-import 'package:financial_recording/features/financial/presentation/bloc/add_financial_bloc/add_financial_bloc.dart';
+import 'package:financial_recording/features/financial/presentation/bloc/bloc/financial_count_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/get_data_bloc/financial_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/widgets/card_custom.dart';
 import 'package:financial_recording/features/financial/presentation/widgets/show_modal_custom.dart';
@@ -91,6 +91,7 @@ class HomePageState extends State<HomePage> {
                                   title: Text(transaction.description),
                                   subtitle: Text(transaction.value),
                                   trailing: Text(transaction.category),
+                                  leading: Text(transaction.id.toString()),
                                 ),
                               ),
                             );
@@ -120,10 +121,12 @@ class HomePageState extends State<HomePage> {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return BlocConsumer<AddFinancialBloc, AddFinancialState>(
+        return BlocConsumer<FinancialCountBloc, FinancialCountState>(
           listener: (context, state) {
-            if (state is AddFinancialSuccess) {
+            if (state.isSuccess == true) {
               context.read<FinancialBloc>().add(GetDataEvent());
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.message)));
             }
           },
           builder: (context, state) {
@@ -148,8 +151,8 @@ class HomePageState extends State<HomePage> {
                   child: const Text('Ya'),
                   onPressed: () {
                     context
-                        .read<AddFinancialBloc>()
-                        .add(DeleteData(financialRecordEntity: transaction));
+                        .read<FinancialCountBloc>()
+                        .add(FinancialCountEvent.deleteData(transaction));
                     Navigator.of(context).pop();
                   },
                 ),
@@ -229,9 +232,9 @@ class HomePageState extends State<HomePage> {
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: BlocConsumer<AddFinancialBloc, AddFinancialState>(
+          child: BlocConsumer<FinancialCountBloc, FinancialCountState>(
             listener: (context, state) {
-              if (state is AddFinancialSuccess) {
+              if (state.isSuccess == true) {
                 context.read<FinancialBloc>().add(GetDataEvent());
               }
             },

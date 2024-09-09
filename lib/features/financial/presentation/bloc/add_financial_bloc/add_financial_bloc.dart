@@ -28,7 +28,19 @@ class AddFinancialBloc extends Bloc<AddFinancialEvent, AddFinancialState> {
           date: DateTime.now(),
           description: event.description,
           value: event.value,
-          category: event.category);
+          category: event.category,
+          amount: event.value,
+          createdAt: DateTime.now().toString(),
+          currency: 'Rp',
+          deletedAt: DateTime.now().toString(),
+          image: DateTime.now().toString(),
+          name: event.description,
+          note: event.description,
+          status: event.description,
+          subCategory: event.description,
+          time: event.description,
+          type: event.description,
+          updatedAt: event.description);
       await addFinancialUsecase.call(params: data);
       emit(AddFinancialSuccess());
     } catch (e) {
