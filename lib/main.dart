@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-              GetWeatherBloc(sl())..add(const GetWeatherEvent.getLocation()),
+              GetWeatherBloc(sl())..add(const GetWeatherEvent.getWeather()),
         ),
       ],
       child: MaterialApp(
