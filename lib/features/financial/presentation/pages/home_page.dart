@@ -58,6 +58,7 @@ class HomePageState extends State<HomePage> {
                   );
                 } else if (state is FinancialLoaded) {
                   // Filter transactions based on selected category and date
+
                   final filteredTransactions =
                       state.financialRecordEntity.where((transaction) {
                     final matchesCategory = selectedCategory == 'All' ||
@@ -118,8 +119,8 @@ class HomePageState extends State<HomePage> {
                     ),
                   );
                 } else if (state is FinancialError) {
-                  return const Center(
-                    child: Text('Error'),
+                  return Center(
+                    child: Text(state.message),
                   );
                 }
                 return const Center(

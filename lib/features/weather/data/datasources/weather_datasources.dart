@@ -21,9 +21,6 @@ class WeatherApiServiceImpl implements WeatherApiService {
         'https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&current_weather=true',
       );
 
-      // Mencetak data respons untuk keperluan debugging
-      print(response.data);
-
       // Mengonversi data JSON menjadi objek GetWeatherModel
       return GetWeatherModel.fromJson(response.data);
     } catch (e) {

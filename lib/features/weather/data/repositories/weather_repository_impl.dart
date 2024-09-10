@@ -5,6 +5,7 @@ import 'package:financial_recording/features/weather/data/datasources/weather_da
 import 'package:financial_recording/features/weather/data/mapper/weather_mapper.dart';
 import 'package:financial_recording/features/weather/domain/entities/weather_entity.dart';
 import 'package:financial_recording/features/weather/domain/repositories/weather_repository.dart';
+import 'package:flutter/material.dart';
 
 class WeatherRepositoryImpl extends WeatherRepository {
   final WeatherApiService weatherRemoteDataSource;
@@ -16,6 +17,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
       final result = await weatherRemoteDataSource.getWeather(
           latitude.toString(), longitude.toString());
       final GetWeatherEntity model = WeatherMapper().toEntity(result);
+      debugPrint(model.currentWeather?.temperature.toString());
       return Right(model);
     } on ServerException {
       return const Left(ServerFailure('kesalahan di server'));

@@ -19,22 +19,19 @@ mixin _$GetWeatherEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(double latitude, double longitude) getWeather,
-    required TResult Function() getLocation,
+    required TResult Function() getWeather,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(double latitude, double longitude)? getWeather,
-    TResult? Function()? getLocation,
+    TResult? Function()? getWeather,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(double latitude, double longitude)? getWeather,
-    TResult Function()? getLocation,
+    TResult Function()? getWeather,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -42,21 +39,18 @@ mixin _$GetWeatherEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetWeather value) getWeather,
-    required TResult Function(_GetLocation value) getLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetWeather value)? getWeather,
-    TResult? Function(_GetLocation value)? getLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetWeather value)? getWeather,
-    TResult Function(_GetLocation value)? getLocation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,8 +113,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(double latitude, double longitude) getWeather,
-    required TResult Function() getLocation,
+    required TResult Function() getWeather,
   }) {
     return started();
   }
@@ -129,8 +122,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(double latitude, double longitude)? getWeather,
-    TResult? Function()? getLocation,
+    TResult? Function()? getWeather,
   }) {
     return started?.call();
   }
@@ -139,8 +131,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(double latitude, double longitude)? getWeather,
-    TResult Function()? getLocation,
+    TResult Function()? getWeather,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -154,7 +145,6 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetWeather value) getWeather,
-    required TResult Function(_GetLocation value) getLocation,
   }) {
     return started(this);
   }
@@ -164,7 +154,6 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetWeather value)? getWeather,
-    TResult? Function(_GetLocation value)? getLocation,
   }) {
     return started?.call(this);
   }
@@ -174,7 +163,6 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetWeather value)? getWeather,
-    TResult Function(_GetLocation value)? getLocation,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -193,8 +181,6 @@ abstract class _$$GetWeatherImplCopyWith<$Res> {
   factory _$$GetWeatherImplCopyWith(
           _$GetWeatherImpl value, $Res Function(_$GetWeatherImpl) then) =
       __$$GetWeatherImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({double latitude, double longitude});
 }
 
 /// @nodoc
@@ -204,91 +190,54 @@ class __$$GetWeatherImplCopyWithImpl<$Res>
   __$$GetWeatherImplCopyWithImpl(
       _$GetWeatherImpl _value, $Res Function(_$GetWeatherImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? latitude = null,
-    Object? longitude = null,
-  }) {
-    return _then(_$GetWeatherImpl(
-      null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$GetWeatherImpl implements _GetWeather {
-  const _$GetWeatherImpl(this.latitude, this.longitude);
-
-  @override
-  final double latitude;
-  @override
-  final double longitude;
+  const _$GetWeatherImpl();
 
   @override
   String toString() {
-    return 'GetWeatherEvent.getWeather(latitude: $latitude, longitude: $longitude)';
+    return 'GetWeatherEvent.getWeather()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$GetWeatherImpl &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude));
+        (other.runtimeType == runtimeType && other is _$GetWeatherImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, latitude, longitude);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GetWeatherImplCopyWith<_$GetWeatherImpl> get copyWith =>
-      __$$GetWeatherImplCopyWithImpl<_$GetWeatherImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(double latitude, double longitude) getWeather,
-    required TResult Function() getLocation,
+    required TResult Function() getWeather,
   }) {
-    return getWeather(latitude, longitude);
+    return getWeather();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(double latitude, double longitude)? getWeather,
-    TResult? Function()? getLocation,
+    TResult? Function()? getWeather,
   }) {
-    return getWeather?.call(latitude, longitude);
+    return getWeather?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(double latitude, double longitude)? getWeather,
-    TResult Function()? getLocation,
+    TResult Function()? getWeather,
     required TResult orElse(),
   }) {
     if (getWeather != null) {
-      return getWeather(latitude, longitude);
+      return getWeather();
     }
     return orElse();
   }
@@ -298,7 +247,6 @@ class _$GetWeatherImpl implements _GetWeather {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetWeather value) getWeather,
-    required TResult Function(_GetLocation value) getLocation,
   }) {
     return getWeather(this);
   }
@@ -308,7 +256,6 @@ class _$GetWeatherImpl implements _GetWeather {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetWeather value)? getWeather,
-    TResult? Function(_GetLocation value)? getLocation,
   }) {
     return getWeather?.call(this);
   }
@@ -318,7 +265,6 @@ class _$GetWeatherImpl implements _GetWeather {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetWeather value)? getWeather,
-    TResult Function(_GetLocation value)? getLocation,
     required TResult orElse(),
   }) {
     if (getWeather != null) {
@@ -329,122 +275,7 @@ class _$GetWeatherImpl implements _GetWeather {
 }
 
 abstract class _GetWeather implements GetWeatherEvent {
-  const factory _GetWeather(final double latitude, final double longitude) =
-      _$GetWeatherImpl;
-
-  double get latitude;
-  double get longitude;
-  @JsonKey(ignore: true)
-  _$$GetWeatherImplCopyWith<_$GetWeatherImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GetLocationImplCopyWith<$Res> {
-  factory _$$GetLocationImplCopyWith(
-          _$GetLocationImpl value, $Res Function(_$GetLocationImpl) then) =
-      __$$GetLocationImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GetLocationImplCopyWithImpl<$Res>
-    extends _$GetWeatherEventCopyWithImpl<$Res, _$GetLocationImpl>
-    implements _$$GetLocationImplCopyWith<$Res> {
-  __$$GetLocationImplCopyWithImpl(
-      _$GetLocationImpl _value, $Res Function(_$GetLocationImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$GetLocationImpl implements _GetLocation {
-  const _$GetLocationImpl();
-
-  @override
-  String toString() {
-    return 'GetWeatherEvent.getLocation()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetLocationImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(double latitude, double longitude) getWeather,
-    required TResult Function() getLocation,
-  }) {
-    return getLocation();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(double latitude, double longitude)? getWeather,
-    TResult? Function()? getLocation,
-  }) {
-    return getLocation?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(double latitude, double longitude)? getWeather,
-    TResult Function()? getLocation,
-    required TResult orElse(),
-  }) {
-    if (getLocation != null) {
-      return getLocation();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_GetWeather value) getWeather,
-    required TResult Function(_GetLocation value) getLocation,
-  }) {
-    return getLocation(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_GetWeather value)? getWeather,
-    TResult? Function(_GetLocation value)? getLocation,
-  }) {
-    return getLocation?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_GetWeather value)? getWeather,
-    TResult Function(_GetLocation value)? getLocation,
-    required TResult orElse(),
-  }) {
-    if (getLocation != null) {
-      return getLocation(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _GetLocation implements GetWeatherEvent {
-  const factory _GetLocation() = _$GetLocationImpl;
+  const factory _GetWeather() = _$GetWeatherImpl;
 }
 
 /// @nodoc
@@ -455,6 +286,7 @@ mixin _$GetWeatherState {
   String get errorMessage => throw _privateConstructorUsedError;
   String get lat => throw _privateConstructorUsedError;
   String get long => throw _privateConstructorUsedError;
+  double? get temp => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GetWeatherStateCopyWith<GetWeatherState> get copyWith =>
@@ -473,7 +305,8 @@ abstract class $GetWeatherStateCopyWith<$Res> {
       bool isError,
       String errorMessage,
       String lat,
-      String long});
+      String long,
+      double? temp});
 }
 
 /// @nodoc
@@ -495,6 +328,7 @@ class _$GetWeatherStateCopyWithImpl<$Res, $Val extends GetWeatherState>
     Object? errorMessage = null,
     Object? lat = null,
     Object? long = null,
+    Object? temp = freezed,
   }) {
     return _then(_value.copyWith(
       weather: null == weather
@@ -521,6 +355,10 @@ class _$GetWeatherStateCopyWithImpl<$Res, $Val extends GetWeatherState>
           ? _value.long
           : long // ignore: cast_nullable_to_non_nullable
               as String,
+      temp: freezed == temp
+          ? _value.temp
+          : temp // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -539,7 +377,8 @@ abstract class _$$GetWeatherStateImplCopyWith<$Res>
       bool isError,
       String errorMessage,
       String lat,
-      String long});
+      String long,
+      double? temp});
 }
 
 /// @nodoc
@@ -559,6 +398,7 @@ class __$$GetWeatherStateImplCopyWithImpl<$Res>
     Object? errorMessage = null,
     Object? lat = null,
     Object? long = null,
+    Object? temp = freezed,
   }) {
     return _then(_$GetWeatherStateImpl(
       weather: null == weather
@@ -585,6 +425,10 @@ class __$$GetWeatherStateImplCopyWithImpl<$Res>
           ? _value.long
           : long // ignore: cast_nullable_to_non_nullable
               as String,
+      temp: freezed == temp
+          ? _value.temp
+          : temp // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -598,7 +442,8 @@ class _$GetWeatherStateImpl implements _GetWeatherState {
       required this.isError,
       required this.errorMessage,
       required this.lat,
-      required this.long});
+      required this.long,
+      this.temp});
 
   @override
   final Option<GetWeatherEntity> weather;
@@ -612,10 +457,12 @@ class _$GetWeatherStateImpl implements _GetWeatherState {
   final String lat;
   @override
   final String long;
+  @override
+  final double? temp;
 
   @override
   String toString() {
-    return 'GetWeatherState(weather: $weather, isLoading: $isLoading, isError: $isError, errorMessage: $errorMessage, lat: $lat, long: $long)';
+    return 'GetWeatherState(weather: $weather, isLoading: $isLoading, isError: $isError, errorMessage: $errorMessage, lat: $lat, long: $long, temp: $temp)';
   }
 
   @override
@@ -630,12 +477,13 @@ class _$GetWeatherStateImpl implements _GetWeatherState {
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.lat, lat) || other.lat == lat) &&
-            (identical(other.long, long) || other.long == long));
+            (identical(other.long, long) || other.long == long) &&
+            (identical(other.temp, temp) || other.temp == temp));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, weather, isLoading, isError, errorMessage, lat, long);
+      runtimeType, weather, isLoading, isError, errorMessage, lat, long, temp);
 
   @JsonKey(ignore: true)
   @override
@@ -652,7 +500,8 @@ abstract class _GetWeatherState implements GetWeatherState {
       required final bool isError,
       required final String errorMessage,
       required final String lat,
-      required final String long}) = _$GetWeatherStateImpl;
+      required final String long,
+      final double? temp}) = _$GetWeatherStateImpl;
 
   @override
   Option<GetWeatherEntity> get weather;
@@ -666,6 +515,8 @@ abstract class _GetWeatherState implements GetWeatherState {
   String get lat;
   @override
   String get long;
+  @override
+  double? get temp;
   @override
   @JsonKey(ignore: true)
   _$$GetWeatherStateImplCopyWith<_$GetWeatherStateImpl> get copyWith =>

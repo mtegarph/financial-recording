@@ -13,14 +13,35 @@ class GetWeatherBloc extends Bloc<GetWeatherEvent, GetWeatherState> {
   final GetWeatherUseCase getWeatherUseCase;
   GetWeatherBloc(this.getWeatherUseCase) : super(GetWeatherState.initial()) {
     on<_GetWeather>(_getWeather);
-    on<_GetLocation>(_getLocation);
   }
-  Future<void> _getLocation(
-      _GetLocation event, Emitter<GetWeatherState> emit) async {
+
+  void _getWeather(_GetWeather event, Emitter<GetWeatherState> emit) async {
+    emit(state.copyWith(isLoading: true));
+    final position = await _getLocation();
+    final result = await getWeatherUseCase
+        .call(params: (lang: position.latitude, long: position.longitude));
+    result.fold(
+      (failure) => emit(state.copyWith(
+        isLoading: false,
+        isError: true,
+        errorMessage: failure.message,
+      )),
+      (weatherEntity) => emit(state.copyWith(
+        isLoading: false,
+        isError: false,
+        weather: some(weatherEntity),
+        lat: position.latitude.toString(),
+        long: position.longitude.toString(),
+        temp: weatherEntity.currentWeather?.temperature,
+      )),
+    );
+  }
+
+  Future<Position> _getLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
     debugPrint('Masuk Pak Haji');
-    emit(state.copyWith(isLoading: true));
+
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return Future.error('Location services are disabled.');
@@ -46,30 +67,6 @@ class GetWeatherBloc extends Bloc<GetWeatherEvent, GetWeatherState> {
 
     Position position =
         await Geolocator.getCurrentPosition(locationSettings: locationSettings);
-
-    emit(state.copyWith(
-      lat: position.latitude.toString(),
-      long: position.longitude.toString(),
-      isLoading: false,
-    ));
-    add(_GetWeather(double.parse(state.lat), double.parse(state.long)));
-  }
-
-  void _getWeather(_GetWeather event, Emitter<GetWeatherState> emit) async {
-    emit(state.copyWith(isLoading: true));
-    final result = await getWeatherUseCase
-        .call(params: (lang: event.latitude, long: event.longitude));
-    result.fold(
-      (failure) => emit(state.copyWith(
-        isLoading: false,
-        isError: true,
-        errorMessage: failure.message,
-      )),
-      (weatherEntity) => emit(state.copyWith(
-        isLoading: false,
-        isError: false,
-        weather: Some(weatherEntity),
-      )),
-    );
+    return position;
   }
 }

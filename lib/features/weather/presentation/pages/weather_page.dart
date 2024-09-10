@@ -7,7 +7,7 @@ class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
   void _resumeSession(BuildContext context) {
     //  final session = context.read<GetWeatherBloc>().state;
-    context.read<GetWeatherBloc>().add(const GetWeatherEvent.getLocation());
+    context.read<GetWeatherBloc>().add(const GetWeatherEvent.getWeather());
   }
 
   @override
@@ -39,18 +39,14 @@ class WeatherPage extends StatelessWidget {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state.weather.isSome()) {
+                } else if (state.weather.isSome() &&
+                    (state.isLoading == false && state.isError == false)) {
                   return Center(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          state.weather.fold(
-                            () => 'No weather data',
-                            (a) => a.currentWeather!.temperature.toString(),
-                          ),
-                        ),
+                        Text(state.temp.toString()),
                         Wrap(
                           direction: Axis.horizontal,
                           children: [
@@ -63,6 +59,10 @@ class WeatherPage extends StatelessWidget {
                         )
                       ],
                     ),
+                  );
+                } else if (state.isError == true) {
+                  return Center(
+                    child: Text(state.errorMessage),
                   );
                 } else {
                   return const Center(
