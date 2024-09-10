@@ -22,3 +22,26 @@ mixin MixFinancialRecord {
     log("data nama $name");
   }
 }
+
+extension Mixdata on MixFinancialRecord {
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'type': type,
+      'category': category,
+      'subCategory': subCategory,
+      'date': date.toIso8601String(),
+      'time': time,
+      'amount': amount,
+      'currency': currency,
+      'note': note,
+      'image': image,
+      'status': status,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'deletedAt': deletedAt,
+    };
+  }
+}

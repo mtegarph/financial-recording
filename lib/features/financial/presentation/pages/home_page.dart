@@ -3,8 +3,10 @@ import 'package:financial_recording/features/financial/presentation/bloc/bloc/fi
 import 'package:financial_recording/features/financial/presentation/bloc/get_data_bloc/financial_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/widgets/card_custom.dart';
 import 'package:financial_recording/features/financial/presentation/widgets/show_modal_custom.dart';
+import 'package:financial_recording/features/weather/presentation/pages/weather_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,11 +22,26 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showAddTransactionModal(context, null);
-        },
-        child: const Icon(Icons.add),
+      floatingActionButtonLocation: ExpandableFab.location,
+      floatingActionButton: ExpandableFab(
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              _showAddTransactionModal(context, null);
+            },
+            child: const Icon(Icons.add),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WeatherPage(),
+                  ));
+            },
+            child: const Icon(Icons.sunny),
+          ),
+        ],
       ),
       appBar: AppBar(
         title: const Text('Financial Recording'),

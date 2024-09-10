@@ -3,6 +3,7 @@ import 'package:financial_recording/features/financial/presentation/bloc/add_fin
 import 'package:financial_recording/features/financial/presentation/bloc/bloc/financial_count_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/get_data_bloc/financial_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/pages/home_page.dart';
+import 'package:financial_recording/features/weather/presentation/bloc/get_weather_bloc/get_weather_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,6 +30,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FinancialCountBloc(sl(), sl(), sl()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              GetWeatherBloc(sl())..add(const GetWeatherEvent.getLocation()),
         ),
       ],
       child: MaterialApp(

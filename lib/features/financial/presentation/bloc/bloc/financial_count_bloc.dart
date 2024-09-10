@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:financial_recording/features/financial/domain/entities/financial_record_entity.dart';
 import 'package:financial_recording/features/financial/domain/usecases/add_financial.dart';
 import 'package:financial_recording/features/financial/domain/usecases/delete_financial.dart';
@@ -18,8 +19,8 @@ class FinancialCountBloc
   FinancialCountBloc(this.addFinancialUsecase, this.updateFinancialUsecase,
       this.deleteFinancialUsecase)
       : super(FinancialCountState.initial()) {
-    on<_AddData>(_onAddData);
-    on<_UpdateData>(_onUpdateData);
+    on<_AddData>(_onAddData, transformer: sequential());
+    on<_UpdateData>(_onUpdateData, transformer: droppable());
     on<_DeleteData>(_onDeleteData);
   }
 
