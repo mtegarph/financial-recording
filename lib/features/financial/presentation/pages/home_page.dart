@@ -1,3 +1,4 @@
+import 'package:financial_recording/core/firebase/firebase_remote_config.dart';
 import 'package:financial_recording/features/financial/domain/entities/financial_record_entity.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/bloc/financial_count_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/get_data_bloc/financial_bloc.dart';
@@ -18,6 +19,19 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   String selectedCategory = 'All';
   DateTime? selectedDate;
+  String welcomeText = '';
+  @override
+  void initState() {
+    super.initState();
+    welcomeText = remoteConfig.getString('welcome_text');
+    getWelcomeText().then(
+      (value) {
+        setState(() {
+          welcomeText = value;
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,90 +58,130 @@ class HomePageState extends State<HomePage> {
         ],
       ),
       appBar: AppBar(
-        title: const Text('Financial Recording'),
+        title: const Text('Hallo'),
       ),
       backgroundColor: Colors.white,
       body: Column(
         children: [
           Expanded(
-            child: BlocBuilder<FinancialBloc, FinancialState>(
-              builder: (context, state) {
-                if (state is FinancialLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is FinancialLoaded) {
-                  // Filter transactions based on selected category and date
-
-                  final filteredTransactions =
-                      state.financialRecordEntity.where((transaction) {
-                    final matchesCategory = selectedCategory == 'All' ||
-                        transaction.category == selectedCategory;
-                    final matchesDate = selectedDate == null ||
-                        _isSameDate(transaction.date, selectedDate!);
-                    return matchesCategory && matchesDate;
-                  }).toList();
-
-                  return SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            direction: Axis.horizontal,
-                            children: [
-                              CardCustom(
-                                  title: 'Total Saldo',
-                                  total: state.totalBalance),
-                              CardCustom(
-                                  title: 'Total Pemasukan',
-                                  total: state.totalIncome.toString()),
-                              CardCustom(
-                                  title: 'Total Pengeluaran',
-                                  total: state.totalExpenses.toString()),
-                            ],
+            child: BlocListener<FinancialBloc, FinancialState>(
+              listener: (context, state) {
+                if (state is FinancialLoaded) {
+                  debugPrint('ip address: ${state.ipAddress}');
+                  if (state.ipAddress == '192.168.1.9') {
+                    if (state.isUpdate == true) {
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentMaterialBanner()
+                        ..showMaterialBanner(
+                          const MaterialBanner(
+                            content: Text('An update is available!'),
+                            actions: [Text('iya')],
                           ),
-                        ),
-                        _buildFilterOptions(context),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: filteredTransactions.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            final transaction = filteredTransactions[index];
-                            return GestureDetector(
-                              onLongPress: () {
-                                _showDeleteDialog(transaction);
-                              },
-                              onTap: () {
-                                _showAddTransactionModal(context, transaction);
-                              },
-                              child: Card(
-                                child: ListTile(
-                                  title: Text(transaction.description),
-                                  subtitle: Text(transaction.value),
-                                  trailing: Text(transaction.category),
-                                  leading: Text(transaction.id.toString()),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                } else if (state is FinancialError) {
-                  return Center(
-                    child: Text(state.message),
-                  );
+                        );
+                    } else {
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentMaterialBanner()
+                        ..showMaterialBanner(
+                          const MaterialBanner(
+                            content: Text('Theres no update available!'),
+                            actions: [Text('iya')],
+                          ),
+                        );
+                    }
+                  }
+                } else {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentMaterialBanner()
+                    ..showMaterialBanner(
+                      const MaterialBanner(
+                        content: Text('your device is not get the update'),
+                        actions: [Text('iya')],
+                      ),
+                    );
                 }
-                return const Center(
-                  child: Text('kosong'),
-                );
               },
+              child: BlocBuilder<FinancialBloc, FinancialState>(
+                builder: (context, state) {
+                  if (state is FinancialLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is FinancialLoaded) {
+                    final filteredTransactions =
+                        state.financialRecordEntity.where((transaction) {
+                      final matchesCategory = selectedCategory == 'All' ||
+                          transaction.category == selectedCategory;
+                      final matchesDate = selectedDate == null ||
+                          _isSameDate(transaction.date, selectedDate!);
+                      return matchesCategory && matchesDate;
+                    }).toList();
+
+                    return homePage(context, filteredTransactions,
+                        state: state);
+                  } else if (state is FinancialError) {
+                    return homePage(context, []);
+                  }
+                  return const Center(
+                    child: Text('kosong'),
+                  );
+                },
+              ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  SingleChildScrollView homePage(
+      BuildContext context, List<FinancialRecordEntity> filteredTransactions,
+      {FinancialLoaded? state}) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              direction: Axis.horizontal,
+              children: [
+                CardCustom(
+                    title: state == null ? 'Total Saldo' : 'total saldo',
+                    total: state == null ? '' : state.totalBalance),
+                CardCustom(
+                    title: 'Total Pemasukan',
+                    total: state == null ? '' : state.totalIncome.toString()),
+                CardCustom(
+                    title: 'Total Pengeluaran',
+                    total: state == null ? '' : state.totalExpenses.toString()),
+              ],
+            ),
+          ),
+          _buildFilterOptions(context),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: filteredTransactions.length,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              final transaction = filteredTransactions[index];
+              return GestureDetector(
+                onLongPress: () {
+                  _showDeleteDialog(transaction);
+                },
+                onTap: () {
+                  _showAddTransactionModal(context, transaction);
+                },
+                child: Card(
+                  child: ListTile(
+                    title: Text(transaction.description),
+                    subtitle: Text(transaction.value),
+                    trailing: Text(transaction.category),
+                    leading: Text(transaction.id.toString()),
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),

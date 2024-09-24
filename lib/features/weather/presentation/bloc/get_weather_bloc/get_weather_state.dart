@@ -9,6 +9,7 @@ class GetWeatherState with _$GetWeatherState {
     required String errorMessage,
     required String lat,
     required String long,
+    
     double? temp,
   }) = _GetWeatherState;
   factory GetWeatherState.initial() => const GetWeatherState(

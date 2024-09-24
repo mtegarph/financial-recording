@@ -10,7 +10,6 @@ import 'package:financial_recording/features/financial/domain/usecases/get_expen
 import 'package:financial_recording/features/financial/domain/usecases/get_income.dart';
 import 'package:financial_recording/features/financial/domain/usecases/list_financial.dart';
 import 'package:financial_recording/features/financial/domain/usecases/update_financial.dart';
-import 'package:financial_recording/features/financial/presentation/bloc/add_financial_bloc/add_financial_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/bloc/financial_count_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/get_data_bloc/financial_bloc.dart';
 import 'package:financial_recording/features/weather/data/datasources/weather_datasources.dart';
@@ -77,7 +76,6 @@ Future<void> init() async {
 
   // bloc
   sl.registerFactory(() => FinancialBloc(sl(), sl(), sl(), sl()));
-  sl.registerFactory(() => AddFinancialBloc(sl(), sl(), sl()));
   sl.registerFactory(() => FinancialCountBloc(sl(), sl(), sl()));
   sl.registerFactory(() => GetWeatherBloc(sl()));
 }

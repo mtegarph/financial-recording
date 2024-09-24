@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1094323017526",
+    "project_id": "frisidea-firebase-remote",
+    "storage_bucket": "frisidea-firebase-remote.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094323017526:android:33a9f393fde6f356860597",
+        "android_client_info": {
+          "package_name": "com.tegar.finan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVSDbRk1yjKDXCjOIa0Pl5nHxjh0NqApE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

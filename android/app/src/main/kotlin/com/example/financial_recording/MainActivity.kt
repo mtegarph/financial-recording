@@ -1,4 +1,4 @@
-package com.example.financial_recording
+package com.tegar.finan
 
 import io.flutter.embedding.android.FlutterActivity
 

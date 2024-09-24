@@ -1,5 +1,5 @@
+import 'package:financial_recording/core/firebase/firebase_remote_config.dart';
 import 'package:financial_recording/dependency_injection.dart';
-import 'package:financial_recording/features/financial/presentation/bloc/add_financial_bloc/add_financial_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/bloc/financial_count_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/bloc/get_data_bloc/financial_bloc.dart';
 import 'package:financial_recording/features/financial/presentation/pages/home_page.dart';
@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
+  await initFirebase();
   runApp(const MyApp());
 }
 
@@ -24,9 +25,6 @@ class MyApp extends StatelessWidget {
         BlocProvider<FinancialBloc>(
           create: (context) =>
               FinancialBloc(sl(), sl(), sl(), sl())..add(GetDataEvent()),
-        ),
-        BlocProvider(
-          create: (context) => AddFinancialBloc(sl(), sl(), sl()),
         ),
         BlocProvider(
           create: (context) => FinancialCountBloc(sl(), sl(), sl()),

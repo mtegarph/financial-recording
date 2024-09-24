@@ -1,3 +1,7 @@
 {
-    "cmake.sourceDirectory": "/Users/muhammadtegarputrantohadi/project/lamaran/financial_recording/linux"
+    "cmake.sourceDirectory": "/Users/muhammadtegarputrantohadi/project/lamaran/financial_recording/linux",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+    }
 }

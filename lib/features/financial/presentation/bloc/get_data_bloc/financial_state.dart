@@ -16,11 +16,17 @@ class FinancialLoaded extends FinancialState {
   final String totalBalance;
   final double totalIncome;
   final double totalExpenses;
+  final String welcomeText;
+  final String ipAddress;
+  final bool isUpdate;
   const FinancialLoaded({
     required this.financialRecordEntity,
     required this.totalBalance,
     required this.totalIncome,
     required this.totalExpenses,
+    required this.welcomeText,
+    required this.ipAddress,
+    required this.isUpdate,
   });
 }
 
